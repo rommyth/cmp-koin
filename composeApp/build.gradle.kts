@@ -54,6 +54,8 @@ kotlin {
             api(libs.koin.annotations)
 
             implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
 
             implementation(libs.jetbrains.compose.navigation)
             implementation(libs.kotlinx.serialization.json)
@@ -61,12 +63,13 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
-        iosMain.dependencies {
+        nativeMain.dependencies {
             implementation(libs.ktor.client.darwin)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutinesSwing)
+            implementation(libs.ktor.client.okhttp)
         }
     }
 
@@ -77,6 +80,7 @@ kotlin {
 }
 
 ksp {
+    arg("KOIN_USE_COMPOSE_VIEWMODEL","true")
     arg("KOIN_CONFIG_CHECK","true")
 }
 
